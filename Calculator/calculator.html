@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            border-radius: 5px;
+            user-select: none;
+        }
+        #wrapper{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            flex-direction: column;
+            background-image: linear-gradient( #D4F1F4, #F4D4E2);
+            /* border: 1px solid red; */
+            position: relative;
+        }
+        #screen{
+            width: 60%;
+            height: 40%;
+            /* border: 1px solid red; */
+            position: absolute;
+            top: -39%;
+            border-radius: 40px;
+            background-color:rgba(0, 0, 0, 0.185);
+            color: #0000009f;
+            font-size: 70px;
+            font-weight: 600;
+            display: flex;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+    #keys{
+        width: 80%;
+        height: 60%;
+        /* border: 1px solid red; */
+        position: absolute;
+        display: flex;
+        bottom: -0%;
+        cursor: pointer;
+        gap: 3px;
+
+    }
+    #numeric_pad{
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+    #operations{
+        width: 40%;
+        height: 100%;
+        display: flex;
+        gap: 3px;
+
+        /* border: 1px solid black; */
+    }
+    #row1{
+        width: 100%;
+        height: 25%;
+        /* border: 1px solid red; */
+        display: flex;
+        gap: 3px;
+    }
+     #row2{
+        width: 100%;
+        height: 25%;
+        /* border: 1px solid red; */
+        display: flex;
+        gap: 3px;
+
+    }
+     #row3{
+        width: 100%;
+        height: 25%;
+        /* border: 1px solid red; */
+        display: flex;
+        gap: 3px;
+
+    }
+     #row4{
+        width: 100%;
+        height: 25%;
+        /* border: 1px solid red; */
+        display: flex;
+        gap: 3px;
+
+    }
+    .row1but{
+        width: 33%;
+        height: 100%;
+        gap: 3px;
+        border: 1px solid red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+     .row2but{
+        width: 33%;
+        height: 100%;
+        gap: 3px;
+        border: 1px solid red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+     .row3but{
+        width: 33%;
+        height: 100%;
+        gap: 3px;
+        border: 1px solid red;display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+     .row4but{
+        width: 33%;
+        height: 100%;
+        gap: 3px;
+        border: 1px solid red;display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+  .dot{
+    position: relative;
+  }
+  .span{
+    position: absolute;
+    top: -.1%;
+  }
+    #col1{
+        width: 33%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid green; */
+        gap: 3px;
+
+    }
+     #col2{
+        width: 33%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+    }
+    #col3{
+        width: 33%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+    }
+    .col1but{
+        width: 100%;
+        height: 25%;
+        border: 1px solid red;display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+      .col2but{
+        width: 100%;
+        height: 25%;
+        border: 1px solid red;display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+     .col3but{
+        width: 100%;
+        height: 25%;
+        border: 1px solid red;display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .text{
+        font-size: 50px;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-weight:600;
+        border: none;
+        box-shadow:2px 2px 4px 0px rgba(0, 0, 0, 0.3); ;
+    }
+    .text:hover{
+        transform: scale(1.0002);
+        transition: 0.1s;
+    }
+    .span{
+        box-shadow: none;
+    }
+    </style>
+</head>
+<body bgcolor="grey">
+    <div id="wrapper">
+        <div id="screen">
+        </div>
+        <div id="keys">
+                <div id="numeric_pad">
+                    <div id="row1">
+                        <div id="num7" class="row1but text">7</div>
+                        <div id="num8" class="row1but text">8</div>
+                        <div id="num9" class="row1but text">9</div>
+                    </div>
+                    <div id="row2">
+                        <div id="num4" class="row2but text">4</div>
+                        <div id="num5"class="row2but text">5</div>
+                        <div id="num6"class="row2but text">6</div>
+                    </div>
+                    <div id="row3">
+                        <div id="num3"class="row3but text">3</div>
+                        <div id="num2" class="row3but text">2</div>
+                        <div id="num1" class="row3but text">1</div>
+                    </div>
+                    <div id="row4">
+                        <div id="num0"class="row4but text">0</div>
+                        <div id="dot"class="row4but dot text"><span class="text span">.</span></div>
+                        <div id="clear" class="row4but text">del</div>
+                    </div>
+                </div>
+                <div id="operations">
+                    <div id="col1">
+                        <div id="plus" class="col1but text">+</div>
+                        <div id="minus" class="col1but text">-</div>
+                        <div id="divide" class="col1but text">/</div>
+                        <div id="equal" class="col1but text">=</div>
+                    </div>
+                    <div id="col2">
+                        <div id="percen" class="col2but text">%</div>
+                        <div id="mul" class="col2but text">*</div>
+                        <div id="openbrac" class="col2but text">(</div>
+                        <div id="closebrac" class="col2but text">)</div>
+                    </div>
+                    <div id="col3">
+                        <div id="fact" class="col3but text">!</div>
+                        <div id="power" class="col3but text">^</div>
+                        <div id="root" class="col3but text">√</div>
+                        <div id="back" class="col3but text">C</div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <script>
+    let nine = document.querySelector('#num9');
+    let eight = document.querySelector('#num8');
+    let seven = document.querySelector('#num7');
+    let six = document.querySelector('#num6');
+    let five = document.querySelector('#num5');
+    let four = document.querySelector('#num4');
+    let three = document.querySelector('#num3');
+    let two = document.querySelector('#num2');
+    let one = document.querySelector('#num1');
+    let zero = document.querySelector('#num0');
+
+    let plus = document.querySelector('#plus');
+    let minus = document.querySelector('#minus'); 
+    let divide = document.querySelector('#divide');
+    let mul = document.querySelector('#mul');
+    let percen = document.querySelector('#percen');
+    let equal = document.querySelector('#equal');
+    let openbrac = document.querySelector('#openbrac');
+    let closebrac = document.querySelector('#closebrac');
+    let clear = document.querySelector('#clear')
+    let fact = document.querySelector('#fact')
+    let power = document.querySelector('#power')
+    let root = document.querySelector('#root')
+    let back = document.querySelector('#back') 
+
+
+
+    let show = document.querySelector('#screen');
+    let forfact = ' ';
+    let forroot = ' ';
+    let forpower = []; 
+
+        nine.addEventListener('click', () => {
+            show.textContent = show.textContent + '9';
+            forfact = forfact + show.textContent
+            forroot = forroot + show.textContent
+            forpower.push(9)
+            console.log(forfact);
+        });
+
+        eight.addEventListener('click', () => {
+            show.textContent = show.textContent + '8';
+            forfact = forfact + show.textContent
+            forpower.push(8)
+            forroot = forroot + show.textContent
+
+
+            console.log(forfact);
+
+        });
+
+        seven.addEventListener('click', () => {
+            show.textContent = show.textContent + '7';
+            forfact = forfact + show.textContent
+            console.log(forfact);
+            forroot = forroot + show.textContent
+
+            forpower.push(7)
+
+        });
+            six.addEventListener('click', () => {
+                show.textContent = show.textContent + '6';
+            forfact = forfact + show.textContent
+                console.log(forfact);
+            forroot = forroot + show.textContent
+
+            forpower.push(6)
+            });
+
+            five.addEventListener('click', () => {
+                show.textContent = show.textContent + '5';
+            forfact = forfact + show.textContent
+                console.log(forfact);
+            forroot = forroot + show.textContent
+
+                forpower.push(5)
+
+            });
+
+            four.addEventListener('click', () => {
+                show.textContent = show.textContent + '4';
+            forfact = forfact + show.textContent
+            forroot = forroot + show.textContent
+
+                console.log(forfact);
+                forpower.push(4)
+
+            });
+            three.addEventListener('click', () => {
+                show.textContent = show.textContent + '3';
+            forfact = forfact + show.textContent
+            forroot = forroot + show.textContent
+
+                console.log(forfact);
+                forpower.push(3)
+
+            });
+
+            two.addEventListener('click', () => {
+                show.textContent = show.textContent + '2';
+            forfact = forfact + show.textContent
+                console.log(forfact);
+            forroot = forroot + show.textContent
+
+                forpower.push(2)
+
+            });
+
+            one.addEventListener('click', () => {
+                show.textContent = show.textContent + '1';
+            forfact = forfact + show.textContent
+                console.log(forfact);
+            forroot = forroot + show.textContent
+
+                forpower.push(1)
+
+            });
+             zero.addEventListener('click', () => {
+                let content = show.textContent[show.textContent.length - 1]
+                if( show.textContent[show.textContent.length - 1] == '/'){
+                    show.textContent = 'INFINITE'
+                }
+                else{
+                    show.textContent = show.textContent + '0';
+                }
+            forfact = forfact + show.textContent
+            forroot = forroot + show.textContent
+
+            forpower.push(0)
+
+            });
+                dot.addEventListener('click', () => {
+                    show.textContent = show.textContent + '.';
+                });
+
+
+                plus.addEventListener('click', () => {
+                    let operators = ['+', '-', '*', '/', '%'];
+                    let lastCharacter = show.textContent[show.textContent.length - 1];
+                    let content = show.textContent.trim()
+                    if(content.length == 0){
+                    }
+                     else if (!forpower.includes('+') && !forpower.includes('-') && !forpower.includes('*') && !forpower.includes('/') && !forpower.includes('%') && !forpower.includes('!') && forpower.includes('^') ) {
+                        console.log(" aa gay");
+                        let answer = 1;
+                        let indexofpow = forpower.indexOf('^')
+                        let firstnum = ' ';
+                        for(let i=0;i<indexofpow; i++){
+                            firstnum = firstnum + forpower[i]
+                        }
+                        let secondnum = ' ';
+                        for(let i=indexofpow+1; i<forpower.length; i++){
+                            secondnum = secondnum + forpower[i]
+                        }
+                        for (let i = 1; i <= secondnum; i++) {
+                            answer = answer * firstnum
+                            console.log(answer);
+                        }
+                        console.log(answer);
+                        show.textContent = answer
+                        // forpower = ' '
+                        forpower.splice(0, forpower.length)
+                    }
+                    else if(content[content.length-1] == '+'){
+
+                    }
+                    else if(operators.includes(lastCharacter)){
+                        show.textContent = show.textContent.slice(0, -1);
+                         show.textContent = show.textContent + '+';
+                         forpower.push('+')
+                        forroot = forroot + '+'
+                        forfact = forfact + '+'
+                    }
+                    else{
+                        show.textContent = show.textContent + '+';
+                         forpower.push('+')
+                        forroot = forroot + '+'
+                        forfact = forfact + '+'
+                    }
+
+                });
+                minus.addEventListener('click', () => {
+
+                    let operators = ['+', '-', '*', '/', '%','^'];
+                    let lastCharacter = show.textContent[show.textContent.length - 1];
+                    let content = show.textContent.trim()
+                    if (content.length == 0) {
+                    }
+                    else if (!forpower.includes('+') && !forpower.includes('-') && !forpower.includes('*') && !forpower.includes('/') && !forpower.includes('%') && !forpower.includes('!') && forpower.includes('^')) {
+                        console.log(" aa gay");
+                        let answer = 1;
+                        let indexofpow = forpower.indexOf('^')
+                        let firstnum = ' ';
+                        for (let i = 0; i < indexofpow; i++) {
+                            firstnum = firstnum + forpower[i]
+                        }
+                        let secondnum = ' ';
+                        for (let i = indexofpow + 1; i < forpower.length; i++) {
+                            secondnum = secondnum + forpower[i]
+                        }
+                        for (let i = 1; i <= secondnum; i++) {
+                            answer = answer * firstnum
+                            console.log(answer);
+                        }
+                        console.log(answer);
+                        show.textContent = answer
+                        // forpower = ' '
+                        forpower.splice(0, forpower.length)
+                    }
+                    else if(forpower[1] == '^'){
+                        let answer = 1;
+                        let key = forpower[forpower.length - 3]
+                        let turn = forpower[forpower.length - 1]
+                        for(let i = 1; i<= turn; i++ ){
+                            answer = answer * key
+                            console.log(answer);
+                        }
+                        console.log(answer);
+                        show.textContent = answer
+                        // forpower = ' '
+                        forpower.splice(0, forpower.length)
+
+                    }
+                    else if (content[content.length - 1] == '-') {
+
+                    }
+                     else if (operators.includes(lastCharacter)) {
+                        show.textContent = show.textContent.slice(0, -1);
+                        show.textContent = show.textContent + '-';
+                        forpower.push('-')
+                        forroot = forroot + '+'
+                        forfact = forfact + '+'
+                    }
+                    else {
+                        show.textContent = show.textContent + '-';
+                        forpower.push('-')
+                        forroot = forroot + '+'
+                        forfact = forfact + '+'
+
+                    }
+                });
+                divide.addEventListener('click', () => {
+                      let operators = ['+', '-', '*', '/', '%','^'];
+                    let lastCharacter = show.textContent[show.textContent.length - 1];
+                    let content = show.textContent.trim()
+                    if (content.length == 0) {
+                    }
+                    else if (!forpower.includes('+') && !forpower.includes('-') && !forpower.includes('*') && !forpower.includes('/') && !forpower.includes('%') && !forpower.includes('!') && forpower.includes('^')) {
+                        console.log(" aa gay");
+                        let answer = 1;
+                        let indexofpow = forpower.indexOf('^')
+                        let firstnum = ' ';
+                        for (let i = 0; i < indexofpow; i++) {
+                            firstnum = firstnum + forpower[i]
+                        }
+                        let secondnum = ' ';
+                        for (let i = indexofpow + 1; i < forpower.length; i++) {
+                            secondnum = secondnum + forpower[i]
+                        }
+                        for (let i = 1; i <= secondnum; i++) {
+                            answer = answer * firstnum
+                            console.log(answer);
+                        }
+                        console.log(answer);
+                        show.textContent = answer
+                        // forpower = ' '
+                        forpower.splice(0, forpower.length)
+                    }
+                     else if (forpower[1] == '^') {
+                        let answer = 1;
+                        let key = forpower[forpower.length - 3]
+                        let turn = forpower[forpower.length - 1]
+                        for (let i = 1; i <= turn; i++) {
+                            answer = answer * key
+                            console.log(answer);
+                        }
+                        console.log(answer);
+                        show.textContent = answer
+                        // forpower = ' '
+                        forpower.splice(0, forpower.length)
+
+                    }
+                    else if (content[content.length - 1] == '/') {
+
+                    }
+                     else if (operators.includes(lastCharacter)) {
+                        show.textContent = show.textContent.slice(0, -1);
+                        show.textContent = show.textContent + '/';
+                        forpower.push('/')
+                        forroot = forroot + '+'
+                        forfact = forfact + '+'
+                    }
+                    else {
+                        show.textContent = show.textContent + '/';
+                        forpower.push('/')
+                        forroot = forroot + '+'
+                        forfact = forfact + '+'
+                    }
+                });
+                mul.addEventListener('click', () => {
+                      let operators = ['+', '-', '*', '/', '%','^'];
+                    let lastCharacter = show.textContent[show.textContent.length - 1];
+                    let content = show.textContent.trim()
+                    if (content.length == 0) {
+                    }
+                    else if (!forpower.includes('+') && !forpower.includes('-') && !forpower.includes('*') && !forpower.includes('/') && !forpower.includes('%') && !forpower.includes('!') && forpower.includes('^')) {
+                        console.log(" aa gay");
+                        let answer = 1;
+                        let indexofpow = forpower.indexOf('^')
+                        let firstnum = ' ';
+                        for (let i = 0; i < indexofpow; i++) {
+                            firstnum = firstnum + forpower[i]
+                        }
+                        let secondnum = ' ';
+                        for (let i = indexofpow + 1; i < forpower.length; i++) {
+                            secondnum = secondnum + forpower[i]
+                        }
+                        for (let i = 1; i <= secondnum; i++) {
+                            answer = answer * firstnum
+                            console.log(answer);
+                        }
+                        console.log(answer);
+                        show.textContent = answer
+                        // forpower = ' '
+                        forpower.splice(0, forpower.length)
+                    }
+                     else if (forpower[1] == '^') {
+                        let answer = 1;
+                        let key = forpower[forpower.length - 3]
+                        let turn = forpower[forpower.length - 1]
+                        for (let i = 1; i <= turn; i++) {
+                            answer = answer * key
+                            console.log(answer);
+                        }
+                        console.log(answer);
+                        show.textContent = answer
+                        // forpower = ' '
+                        forpower.splice(0, forpower.length)
+
+                    }
+                    else if (content[content.length - 1] == '*') {
+
+                    }
+                     else if (operators.includes(lastCharacter)) {
+                        show.textContent = show.textContent.slice(0, -1);
+                        show.textContent = show.textContent + '*';
+                        forpower.push('*')
+                        forroot = forroot + '+'
+                        forfact = forfact + '+'
+                    }
+                    else {
+                        show.textContent = show.textContent + '*';
+                        forpower.push('*')
+                        forroot = forroot + '+'
+                        forfact = forfact + '+'
+                    }
+                });
+                percen.addEventListener('click', () => {
+                      let operators = ['+', '-', '*', '/', '%','^'];
+                    let lastCharacter = show.textContent[show.textContent.length - 1];
+                    let content = show.textContent.trim()
+                    // console.log(forpower.indexof('^') == 47);
+                    if (content.length == 0) {
+                    }
+                    else if (!forpower.includes('+') && !forpower.includes('-') && !forpower.includes('*') && !forpower.includes('/') && !forpower.includes('%') && !forpower.includes('!') && forpower.includes('^')) {
+                        console.log(" aa gay");
+                        let answer = 1;
+                        let indexofpow = forpower.indexOf('^')
+                        let firstnum = ' ';
+                        for (let i = 0; i < indexofpow; i++) {
+                            firstnum = firstnum + forpower[i]
+                        }
+                        let secondnum = ' ';
+                        for (let i = indexofpow + 1; i < forpower.length; i++) {
+                            secondnum = secondnum + forpower[i]
+                        }
+                        for (let i = 1; i <= secondnum; i++) {
+                            answer = answer * firstnum
+                            console.log(answer);
+                        }
+                        console.log(answer);
+                        show.textContent = answer
+                        // forpower = ' '
+                        forpower.splice(0, forpower.length)
+                    }
+                     else if (forpower[1] == '^') {
+
+                        let answer = 1;
+                        let key = forpower[forpower.length - 3]
+                        let turn = forpower[forpower.length - 1]
+                        for (let i = 1; i <= turn; i++) {
+                            answer = answer * key
+                            console.log(answer);
+                        }
+                        console.log(answer);
+                        show.textContent = answer
+                        // forpower = ' '
+                        forpower.splice(0, forpower.length)
+
+                    }
+                    else if (content[content.length - 1] == '%') {
+
+                    }
+                     else if (operators.includes(lastCharacter)) {
+                        show.textContent = show.textContent.slice(0, -1);
+                        show.textContent = show.textContent + '%';
+                        forpower.push('%')
+                        forroot = forroot + '+'
+                        forfact = forfact + '+'
+                        console.log("aa gya");
+                    }
+                    else {
+                        show.textContent = show.textContent + '%';
+                        forpower.push('%')
+                        forroot = forroot + '+'
+                        forfact = forfact + '+'
+                    }
+                });
+                equal.addEventListener('click', () => {
+                    // console.log(show.textContent.trim().length);
+                    // console.log(forpower.length);
+                 if (!forpower.includes('+') && !forpower.includes('-') && !forpower.includes('*') && !forpower.includes('/') && !forpower.includes('%') && !forpower.includes('!') && forpower.includes('^')) {
+                        console.log(" aa gay");
+                        let answer = 1;
+                        let indexofpow = forpower.indexOf('^')
+                        let firstnum = ' ';
+                        for (let i = 0; i < indexofpow; i++) {
+                            firstnum = firstnum + forpower[i]
+                        }
+                        let secondnum = ' ';
+                        for (let i = indexofpow + 1; i < forpower.length; i++) {
+                            secondnum = secondnum + forpower[i]
+                        }
+                        for (let i = 1; i <= secondnum; i++) {
+                            answer = answer * firstnum
+                            console.log(answer);
+                        }
+                        console.log(answer);
+                        show.textContent = answer
+                        // forpower = ' '
+                        forpower.splice(0, forpower.length)
+                    }
+                    else{
+                        let operators = ['+', '-', '*', '/', '%'];
+                        let lastCharacter = show.textContent[show.textContent.length - 1];
+                        let content;
+                        if (show.textContent.includes('.')) {
+                            content = eval(show.textContent).toFixed(2)
+                            show.textContent = content
+                        }
+                        else if (operators.includes(lastCharacter)) {
+                            show.textContent = ' '
+                        }
+                        else {
+                            content = eval(show.textContent)
+                            show.textContent = content
+                        }
+                    }
+                  
+                });
+                openbrac.addEventListener('click', () => {
+                    show.textContent = show.textContent + '(';
+                });
+                closebrac.addEventListener('click', () => {
+                    show.textContent = show.textContent + ')';
+                });
+                clear.addEventListener('click', () => {
+                    show.textContent = ' '
+                });
+                back.addEventListener('click',()=>{
+                    show.textContent = show.textContent.slice(0,-1)
+                })
+                fact.addEventListener('click',()=>{
+                    if(forfact == ' '){
+
+                    }
+                    else if(forfact.includes('+') || forfact.includes('-') || forfact.includes('*') || forfact.includes('/') || forfact.includes('%') || forfact.includes('!') || forfact.includes('*')){console.log("aa gya");}
+                    else{
+                        let convert = Number(forfact)
+                        calfact(convert)
+
+                        function calfact(key) {
+                            let answer = 1;
+                            for (let i = 1; i <= key; i++) {
+                                answer = answer * i;
+                                console.log(answer);
+                            }
+                            console.log(answer);
+                            show.textContent = answer
+                        }
+                        forfact = ' '
+                        forpower.push('!')
+
+                    }
+                }) 
+                    root.addEventListener('click',()=>{
+                        console.log("aa gya");
+                        console.log(forroot.length);
+                    if(forroot == ' '){
+
+                    }
+                    else if(forroot.includes('+') || forroot.includes('-') || forroot.includes('*') || forroot.includes('/') || forroot.includes('%') || forroot.includes('!') || forroot.includes('*')){console.log("aa gya");}
+                    else{
+                        console.log(" aagyy");
+                        let convert = Number(forroot)
+                        let answer = Math.sqrt(convert)
+                            show.textContent = answer
+                        forroot = ' '
+                        forpower.push('')
+
+                    }
+                }) 
+                power.addEventListener('click',()=>{
+                        let operators = ['+', '-', '*', '/', '%','^'];
+                    let lastCharacter = forpower[forpower.length - 1];
+                    let content = show.textContent.trim()
+                    if (content.length == 0) {
+                        console.log(forpower  + 2);
+
+                    }
+                    else if (forpower[forpower.length - 1] == '^') {
+                        console.log(forpower + 3);
+
+                    }
+                    else if (operators.includes(lastCharacter)) {
+                        show.textContent = show.textContent.slice(0, -1);
+                        show.textContent = show.textContent + '^';
+                        forpower.splice(0,-1)
+                        forpower.push('^')
+                        console.log(forpower);
+                    }
+                     else if (forpower.includes('+') || forpower.includes('-') || forpower.includes('*') || forpower.includes('/') || forpower.includes('%') || forpower.includes('!') || forpower.includes('*')) {
+                        console.log(forpower + 1);
+                    }
+                    else {
+                        show.textContent = show.textContent + '^';
+                        forpower.push('^')
+                        console.log(forpower);
+                    }
+                })
+    </script>
+</body>
+</html>
