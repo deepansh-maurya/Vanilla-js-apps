@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            user-select:none;
+        }
+        .header{
+            height: 10%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            font-weight:bolder;
+            background: linear-gradient(45deg, #29293a, #39425d, #3e4d6a, #7a619a);
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(97, 157, 226);
+           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            position: absolute;
+            top: 0;
+        }
+        .wrapper{
+            width: 100vw;
+            position:relative;
+            height: 100vh;
+            background: linear-gradient(135deg, #2e3a6a, #485b9a, #7a94c1);   
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #212121;
+        }
+        .upper{
+            margin-top: 3%;
+            display: grid;
+            grid-template-columns: repeat(4,25%);
+            grid-template-rows: repeat(4,25%);
+            gap: 10px;
+            position: absolute;
+            top: 17%;
+            width: 50%;
+            height: 50%;
+        }
+        .cards{
+            background-color: #3498db;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); 
+            border-radius: 5px;
+             animation: rotateAnimation 0.06s ease-in-out 5;
+        }
+        .image1,.image2,.image3,.image4,.image5,.image6,.image7,.image8{
+            width: 100%;
+            height: 100%;
+            transform: rotateX(90deg);
+            transition: 0.2s;
+            border-radius: 5px;
+            animation: rotateAnimation 0.06s ease-in-out 5 ;
+        }
+         @keyframes rotateAnimation {
+            0% {
+                transform: rotateY(0deg);
+            }
+            10%{
+                transform: rotateY(5deg);
+
+            }
+            20%{
+                transform: rotateY(10deg);
+
+            }
+            30%{
+                transform: rotateY(20deg);
+
+            }
+            40%{
+                transform: rotateY(30deg);
+
+            }
+            50% {
+                transform: rotateY(40deg);
+            }
+            60%{
+                transform: rotateY(50deg);
+
+            }
+            70%{
+                transform: rotateY(60deg);
+
+            }
+            80%{
+                transform: rotateY(70deg);
+
+            }
+            90%{
+                transform: rotateY(80deg);
+
+            }
+            100% {
+                transform: rotateY(90deg);
+            }
+            }
+
+        .lower{
+            width: 55%;
+            height: 10%;
+            position: absolute;
+            background-color: rgb(27, 82, 64);
+            margin-top: 3%;
+            display: flex;
+            justify-content: space-evenly;
+            background: linear-gradient(135deg, #6185c4, #8aa4d2, #c0d3e3);
+            align-items: center;
+            top: 74%;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            border-radius: 5px;
+            left: 23.5%;
+        }
+        .points{
+            height: 35%;
+            width: 4%;
+            background-color: #0f213f2a;
+            border-radius: 5px;
+            position: relative;
+            left: -4%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 130%;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(1, 21, 44);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            opacity: 100%;
+            backdrop-filter: blur(10px); 
+        }
+        
+        @keyframes rotateAnimation {
+            0% {
+                transform: rotateY(0deg);
+            }
+            10%{
+                transform: rotateY(5deg);
+
+            }
+            20%{
+                transform: rotateY(10deg);
+
+            }
+            30%{
+                transform: rotateY(20deg);
+
+            }
+            40%{
+                transform: rotateY(30deg);
+
+            }
+            50% {
+                transform: rotateY(40deg);
+            }
+            60%{
+                transform: rotateY(50deg);
+
+            }
+            70%{
+                transform: rotateY(60deg);
+
+            }
+            80%{
+                transform: rotateY(70deg);
+
+            }
+            90%{
+                transform: rotateY(80deg);
+
+            }
+            100% {
+                transform: rotateY(90deg);
+            }
+        }
+
+        .ending,.lost{
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            /* background: linear-gradient(rgba(0,rgb(122, 26, 26), 0.671), rgb(0, 0, 0));  */
+            background-image: linear-gradient(black,rgba(0, 0, 0, 0.527),black);
+            backdrop-filter: blur(6px);
+            transition: 1s;
+            align-items: center;
+            justify-content: center;
+            font-weight: bolder;
+            border: 1px solid black;
+            font-size: 100px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(180, 0, 0);
+            position: absolute;
+            user-select: none;
+           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            animation: enter 0.1s ease-in-out forwards ;
+            position: relative;
+            top: -100%;
+        }
+        @keyframes enter {
+            0%{
+                top: -100%;
+            }
+            30%{
+                top: -70%;
+            }
+            50%{
+                top: -50%;
+            }
+            70%{
+                top: -30%;
+            }
+            100%{
+
+                top: 0%;
+            }
+            
+        }
+        .banner{
+            font-size: 110%;
+            font-weight: bolder;
+            font-family: Arial, Helvetica, sans-serif;
+              color: rgb(5, 27, 54);
+           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+
+        <div class="header">
+            MEMORY GAME
+        </div>
+        <div class="upper">
+            <div class="cards card1">
+                <img id="photo1" class="image1" src="" alt="golang">
+            </div>
+            <div class="cards card2">
+                <img class="image1" id="photo2" src=""  alt="golang">
+            </div>
+            <div class="cards card3" >
+                <img class="image2" id="photo3" src="" alt="rust">
+            </div>
+            <div class="cards card4" >
+                <img class="image2" id="photo4" src="" alt="rust">
+            </div>
+            <div class="cards card5" >
+                <img class="image3" id="photo5" src=""  alt="ruby">
+            </div>
+            <div class="cards card6" >
+                <img class="image3" id="photo6" src="" alt="ruby">
+            </div>
+            <div class="cards card7" >
+                <img class="image4" id="photo7" src="" alt="swift">
+            </div>
+            <div class="cards card8" >
+                <img class="image4" id="photo8" src=""  alt="swift">
+            </div>
+            <div class="cards card9" >
+                <img class="image5" id="photo9" src="" alt="python">
+            </div>
+            <div class="cards card10">
+                <img class="image5"  id="photo10" src="" alt="python">
+            </div>
+            <div class="cards card11">
+                <img class="image6"  id="photo11" src="" alt="java">
+            </div>
+            <div class="cards card12" > 
+                <img class="image6" id="photo12" src="" alt="java">
+            </div>
+            <div class="cards card13" >
+                <img class="image7" id="photo13" src="" alt="type">
+            </div>
+            <div class="cards card14" >
+                <img class="image7" id="photo14" src="" alt="type">
+            </div>
+            <div class="cards card15" >
+                <img class="image8 photo photo15" id=" photo15" src="" alt="kotlin">
+            </div>
+            <div class="cards card16" >
+                <img class="image8 photo16" id="photo16" src="" alt="kotlin">
+            </div>
+
+        </div>
+        <div class="lower">
+            <div class="Level banner">Level</div>
+            <div class="leveldiv points">1</div>
+            <div class="TurnsTaken banner">Turns Taken</div>
+            <div class="turnsdiv points">0</div>
+            <div class="TotalMoves banner">Total Moves</div>
+            <div class="totaldiv points">32</div>
+            <div class="Score banner">Score</div>
+            <div class="scorediv  points"></div>
+        </div>
+        <div class="ending">
+             YOU WON!!!
+        </div>
+        <div class="lost">
+            OUT OF MOVES
+        </div>
+    </div>
+    <script>
+        let card1 = document.querySelector(".card1")
+        let card2 = document.querySelector(".card2")
+        let card3 = document.querySelector(".card3")
+        let card4 = document.querySelector(".card4")
+        let card5 = document.querySelector(".card5")
+        let card6 = document.querySelector(".card6")
+        let card7 = document.querySelector(".card7")
+        let card8 = document.querySelector(".card8")
+        let card9 = document.querySelector(".card9")
+        let card10 = document.querySelector(".card10")
+        let card11 = document.querySelector(".card11")
+        let card12 = document.querySelector(".card12")
+        let card13 = document.querySelector(".card13")
+        let card14 = document.querySelector(".card14")
+        let card15 = document.querySelector(".card15")
+        let card16 = document.querySelector(".card16")
+        let moves = document.querySelector('.turnsdiv')
+        let turns = 32
+        let link1 ="" ;
+        let link2 = "" ;
+        let count = 0
+        let score = 0
+        
+        
+        let flag1=1,flag2=1,flag3=1,flag4=1,flag5=1,flag6=1,flag7=1,flag8=1,flag9=1,flag10=1,flag11=1,flag12=1,flag13=1,flag14=1,flag15=1,flag16=1;
+
+        gameLogic1()
+        let imagePaths = [
+            "go1.png", "js1.png", "kot1.jpeg", "py1.png", "ruby1.png", "rust1.jpeg", "swift1.jpeg", "ts1.png",
+            "go2.png", "js2.png", "kot2.jpeg", "py2.png", "ruby2.png", "rust2.jpeg", "swift2.jpeg", "ts2.png"]
+        function shuffelingImage() {
+            for (let i = 1; i <= 16; i++) {
+                if(i<15){
+                let randomIndex = Math.floor(Math.random() * imagePaths.length);
+                let imageElement = document.querySelector('#photo' + i);
+                imageElement.src = imagePaths[randomIndex];
+                imagePaths.splice(randomIndex, 1);
+                }
+                else{
+                    let randomIndex = Math.floor(Math.random() * imagePaths.length);
+                    let imageElement = document.querySelector('.photo' + i);
+                    imageElement.src = imagePaths[randomIndex];
+                    imagePaths.splice(randomIndex, 1);                   
+                }
+            }
+        }
+
+        function finish(){
+                    setTimeout(()=>{
+                           let end = document.querySelector('.ending')
+                        if (card1.classList.contains('finish') && card2.classList.contains('finish') && card3.classList.contains('finish') && card4.classList.contains('finish') && card5.classList.contains('finish') && card6.classList.contains('finish') && card7.classList.contains('finish') && card8.classList.contains('finish') && card9.classList.contains('finish') && card10.classList.contains('finish') && card11.classList.contains('finish') && card12.classList.contains('finish') && card13.classList.contains('finish') && card14.classList.contains('finish') && card15.classList.contains('finish') && card16.classList.contains('finish')) {
+                            console.log(card1.classList, card2.classList,card3.classList,card4.classList,card5.classList,card5.classList,card6.classList,
+                            card7.classList,card8.classList,card9.classList,card10.classList,card11.classList,card12.classList,card13.classList,card14.classList,
+                            card15.classList,card16.classList);
+                            end.setAttribute('style', 'display: flex')
+                              let winningSound = new Audio('winning.wav')
+                              winningSound.volume = 0.5
+                            winningSound.play()
+                        }
+                    },600)
+                  
+        }
+        function gameLogic1(){
+            
+            card1.addEventListener('click', () => {
+                let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600/1000
+                     audio.play()                     
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag1){
+                     flag1 = 0, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                    count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo1').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card1.classList.add('finish')
+                        console.log(card1.classList);
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo1').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card1.classList.add('finish')
+                        console.log(card1.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card1.classList.remove('finish')
+                                console.log(card1.classList);
+                            }, 800);
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                     flag2 = 1
+                }
+                
+            })
+            card2.addEventListener('click', () => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                 audio.currentTime = 600 / 1000
+                 audio.play()
+                 setTimeout(function () {
+                     audio.pause();
+                 }, 700);
+
+                 if(flag2){
+                     flag1 = 1, flag2 = 0, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                    count++
+                     if (count > turns) {
+                         let moves = document.querySelector('.lost')
+                         moves.setAttribute('style', 'display:flex;')
+                         let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                         gameover.play()
+                     }
+                     moves.textContent = count
+                     if (link1.length == 0) {
+                         link1 = document.getElementById('photo2').getAttribute('src')
+                         let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                         thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                         card2.classList.add('finish')
+                         console.log(card2.classList);
+                         if (link1 == 'go1.png' || link1 == 'go2.png') {
+                             thatCard1.alt = 'golang'
+                         }
+                         else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                             thatCard1.alt = 'javascript'
+                         }
+                         else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                             thatCard1.alt = 'kotlin'
+                         }
+                         else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                             thatCard1.alt = 'python'
+                         }
+                         else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                             thatCard1.alt = 'ruby'
+                         }
+                         else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                             thatCard1.alt = 'rust'
+                         }
+                         else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                             thatCard1.alt = 'swift'
+                         }
+                         else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                             thatCard1.alt = 'typescript'
+                         }
+
+                     }
+                     else {
+                         link2 = document.getElementById('photo2').getAttribute('src')
+                         let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                         thatCard2.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                         card2.classList.add('finish')
+                         console.log(card2.classList);
+
+                         if (link2 == 'go1.png' || link2 == 'go2.png') {
+                             thatCard2.alt = 'golang'
+                         }
+                         else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                             thatCard2.alt = 'javascript'
+                         }
+                         else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                             thatCard2.alt = 'kotlin'
+                         }
+                         else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                             thatCard2.alt = 'python'
+                         }
+                         else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                             thatCard2.alt = 'ruby'
+                         }
+                         else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                             thatCard2.alt = 'rust'
+                         }
+                         else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                             thatCard2.alt = 'swift'
+                         }
+                         else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                             thatCard2.alt = 'typescript'
+                         }
+                     }
+
+                     if (link1.length != 0 && link2.length != 0) {
+                         let curlink1 = link1
+                         let curlink2 = link2
+                         link1 = ""
+                         link2 = ""
+                         let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                         let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                         let alt1 = thatCard1.getAttribute('alt')
+                         let alt2 = thatCard2.getAttribute('alt')
+
+                         if (alt1 != alt2) {
+                             setTimeout(() => {
+                                 let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                 let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                 thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                 thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                 card2.classList.remove('finish')
+                                 console.log(card2.classList);
+
+                                 link1 = "";
+                                 link2 = "";
+                             }, 800);
+                         }
+                         else {
+                             score = score + 2
+                             let scorediv = document.querySelector('.scorediv')
+                             scorediv.textContent = score
+                             let cardMatched = new Audio('cardmatch.wav')
+                             cardMatched.volume = 0.5
+                             cardMatched.play()
+                         }
+                     }
+                     finish()
+                     flag1=1
+                    }
+            })
+            card3.addEventListener('click', () => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                 audio.currentTime = 600 / 1000
+                 audio.play()
+                 setTimeout(function () {
+                     audio.pause();
+                 }, 700);
+                 if(flag3){
+                     flag1 = 1, flag2 = 1, flag3 = 0, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                      count++
+                     if (count > turns) {
+                         let moves = document.querySelector('.lost')
+                         moves.setAttribute('style', 'display:flex;')
+                         let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                         gameover.play()
+                     }
+                     moves.textContent = count
+                     if (link1.length == 0) {
+                         link1 = document.getElementById('photo3').getAttribute('src')
+                         let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                         thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                         card3.classList.add('finish')
+                         console.log(card3.classList);
+                         if (link1 == 'go1.png' || link1 == 'go2.png') {
+                             thatCard1.alt = 'golang'
+                         }
+                         else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                             thatCard1.alt = 'javascript'
+                         }
+                         else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                             thatCard1.alt = 'kotlin'
+                         }
+                         else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                             thatCard1.alt = 'python'
+                         }
+                         else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                             thatCard1.alt = 'ruby'
+                         }
+                         else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                             thatCard1.alt = 'rust'
+                         }
+                         else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                             thatCard1.alt = 'swift'
+                         }
+                         else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                             thatCard1.alt = 'typescript'
+                         }
+                     }
+                     else {
+                         link2 = document.getElementById('photo3').getAttribute('src')
+                         let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                         thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                         card3.classList.add('finish')
+                         console.log(card3.classList);
+
+                         if (link2 == 'go1.png' || link2 == 'go2.png') {
+                             thatCard2.alt = 'golang'
+                         }
+                         else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                             thatCard2.alt = 'javascript'
+                         }
+                         else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                             thatCard2.alt = 'kotlin'
+                         }
+                         else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                             thatCard2.alt = 'python'
+                         }
+                         else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                             thatCard2.alt = 'ruby'
+                         }
+                         else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                             thatCard2.alt = 'rust'
+                         }
+                         else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                             thatCard2.alt = 'swift'
+                         }
+                         else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                             thatCard2.alt = 'typescript'
+                         }
+                     }
+
+                     if (link1.length != 0 && link2.length != 0) {
+                         let curlink1 = link1
+                         let curlink2 = link2
+                         link1 = ""
+                         link2 = ""
+                         let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                         let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                         let alt1 = thatCard1.getAttribute('alt')
+                         let alt2 = thatCard2.getAttribute('alt')
+
+                         if (alt1 != alt2) {
+                             setTimeout(() => {
+                                 let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                 let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                 thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                 card3.classList.remove('finish')
+                         console.log(card3.classList);
+
+                                 thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                 link1 = "";
+                                 link2 = "";
+                             }, 800);
+                         }
+                         else {
+                             score = score + 2
+                             let scorediv = document.querySelector('.scorediv')
+                             scorediv.textContent = score
+                             let cardMatched = new Audio('cardmatch.wav')
+                             cardMatched.volume = 0.5
+                             cardMatched.play()
+                         }
+                     }
+                     finish()
+                 }
+              
+            })
+            card4.addEventListener('click', () => {
+             let audio = new Audio('whoopwav-14650.mp3')
+             audio.currentTime = 600 / 1000
+             audio.play()
+
+             setTimeout(function () {
+                 audio.pause();
+             }, 700);
+             if(flag4){
+                 flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 0, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                  count++
+                 if (count > turns) {
+                     let moves = document.querySelector('.lost')
+                     moves.setAttribute('style', 'display:flex;')
+                     let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                     gameover.play()
+                 }
+                 moves.textContent = count
+                 if (link1.length == 0) {
+                     link1 = document.getElementById('photo4').getAttribute('src')
+                     let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                     thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                     card4.classList.add('finish')
+                     console.log(card4.classList);
+
+                     if (link1 == 'go1.png' || link1 == 'go2.png') {
+                         thatCard1.alt = 'golang'
+                     }
+                     else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                         thatCard1.alt = 'javascript'
+                     }
+                     else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                         thatCard1.alt = 'kotlin'
+                     }
+                     else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                         thatCard1.alt = 'python'
+                     }
+                     else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                         thatCard1.alt = 'ruby'
+                     }
+                     else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                         thatCard1.alt = 'rust'
+                     }
+                     else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                         thatCard1.alt = 'swift'
+                     }
+                     else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                         thatCard1.alt = 'typescript'
+                     }
+                 }
+                 else {
+                     link2 = document.getElementById('photo4').getAttribute('src')
+                     let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                     thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                     card4.classList.add('finish')
+                     console.log(card4.classList);
+
+                     if (link2 == 'go1.png' || link2 == 'go2.png') {
+                         thatCard2.alt = 'golang'
+                     }
+                     else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                         thatCard2.alt = 'javascript'
+                     }
+                     else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                         thatCard2.alt = 'kotlin'
+                     }
+                     else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                         thatCard2.alt = 'python'
+                     }
+                     else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                         thatCard2.alt = 'ruby'
+                     }
+                     else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                         thatCard2.alt = 'rust'
+                     }
+                     else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                         thatCard2.alt = 'swift'
+                     }
+                     else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                         thatCard2.alt = 'typescript'
+                     }
+                 }
+
+                 if (link1.length != 0 && link2.length != 0) {
+                     let curlink1 = link1
+                     let curlink2 = link2
+                     link1 = ""
+                     link2 = ""
+                     let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                     let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                     let alt1 = thatCard1.getAttribute('alt')
+                     let alt2 = thatCard2.getAttribute('alt')
+
+                     if (alt1 != alt2) {
+                         setTimeout(() => {
+                             let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                             let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                             thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                             thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                             card4.classList.remove('finish')
+                         console.log(card4.classList);
+
+                             link1 = "";
+                             link2 = "";
+                         }, 800);
+
+                     }
+                     else {
+                         score = score + 2
+                         let scorediv = document.querySelector('.scorediv')
+                         scorediv.textContent = score
+                         let cardMatched = new Audio('cardmatch.wav')
+                         cardMatched.volume = 0.5
+                         cardMatched.play()
+                     }
+                 }
+                 finish()
+             }
+          
+            })
+            card5.addEventListener('click', () => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag5){
+                     flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 0, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                      count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo5').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card5.classList.add('finish')
+                        console.log(card5.classList);
+
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo5').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card5.classList.add('finish')
+                        console.log(card5.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card5.classList.remove('finish')
+                         console.log(card5.classList);
+
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+              
+            })
+            card6.addEventListener('click', () => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag6){
+                    flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 0, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                      count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo6').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card6.classList.add('finish')
+                        console.log(card6.classList);
+
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo6').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card6.classList.add('finish')
+                        console.log(card6.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card6.classList.remove('finish')
+                         console.log(card6.classList);
+
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+              
+            })
+            card7.addEventListener('click', () => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag7){
+                     flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 0, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                    count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo7').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card7.classList.add('finish')
+                        console.log(card7.classList);
+
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo7').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card7.classList.add('finish')
+                        console.log(card7.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card7.classList.remove('finish')
+                         console.log(card7.classList);
+
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+                
+            })
+            card8.addEventListener('click', () => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag8){
+                     flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 0, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                    count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo8').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card8.classList.add('finish')
+                        console.log(card8.classList);
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo8').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card8.classList.add('finish')
+                        console.log(card8.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card8.classList.remove('finish')
+                        console.log(card8.classList);
+
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+                
+            })
+            card9.addEventListener('click', () => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag9){
+                     flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 0, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                    count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo9').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card9.classList.add('finish')
+                        console.log(card9.classList);
+
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo9').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card9.classList.add('finish')
+                        console.log(card9.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card9.classList.remove('finish')
+                        console.log(card9.classList);
+
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+                
+            })
+            card10.addEventListener('click',() => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag10){
+                    flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 0, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                    count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo10').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card10.classList.add('finish')
+                        console.log(card10.classList);
+
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo10').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card10.classList.add('finish')
+                        console.log(card10.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card10.classList.remove('finish')
+                        console.log(card10.classList);
+
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+                
+            })
+            card11.addEventListener('click',() => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag11){
+                     flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 0, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                     count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo11').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card11.classList.add('finish')
+                        console.log(card11.classList);
+
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo11').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card11.classList.add('finish')
+                        console.log(card11.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card11.classList.remove('finish')
+                        console.log(card11.classList);
+
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+               
+            })
+            card12.addEventListener('click',() => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag12){
+                     flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 0, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 1;
+                    count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo12').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card12.classList.add('finish')
+                        console.log(card12.classList);
+
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo12').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card12.classList.add('finish')
+                        console.log(card12.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card12.classList.remove('finish')
+                        console.log(card12.classList);
+
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+                
+            })
+            card13.addEventListener('click',() => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag13){
+                     flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 0, flag14 = 1, flag15 = 1, flag16 = 1;
+                    count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo13').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card13.classList.add('finish')
+                        console.log(card13.classList);
+
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo13').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card13.classList.add('finish')
+                        console.log(card13.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card13.classList.remove('finish')
+                        console.log(card13.classList);
+
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+                
+            })
+            card14.addEventListener('click',() => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag14){
+                     flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 0, flag15 = 1, flag16 = 1;
+                      count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo14').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card14.classList.add('finish')
+                        console.log(card14.classList);
+
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo14').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card14.classList.add('finish')
+                        console.log(card14.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card14.classList.remove('finish')
+                        console.log(card14.classList);
+
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+              
+            })
+            card15.addEventListener('click',() => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+
+                if(flag15){
+                     flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 0, flag16 = 1;
+                    count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.querySelector('.photo').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card15.classList.add('finish')
+                        console.log(card15.classList);
+
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.querySelector('.photo').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card15.classList.add('finish')
+                        console.log(card15.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card15.classList.remove('finish')
+                        console.log(card15.classList);
+
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+                
+            })
+            card16.addEventListener('click',() => {
+                 let audio = new Audio('whoopwav-14650.mp3')
+                audio.currentTime = 600 / 1000
+                audio.play()
+
+                setTimeout(function () {
+                    audio.pause();
+                }, 700);
+                if(flag16){
+                     flag1 = 1, flag2 = 1, flag3 = 1, flag4 = 1, flag5 = 1, flag6 = 1, flag7 = 1, flag8 = 1, flag9 = 1, flag10 = 1, flag11 = 1, flag12 = 1, flag13 = 1, flag14 = 1, flag15 = 1, flag16 = 0;
+                    count++
+                    if (count > turns) {
+                        let moves = document.querySelector('.lost')
+                        moves.setAttribute('style', 'display:flex;')
+                        let gameover = new Audio('mixkit-funny-fail-low-tone-2876.wav')
+                        gameover.play()
+                    }
+                    moves.textContent = count
+                    if (link1.length == 0) {
+                        link1 = document.getElementById('photo16').getAttribute('src')
+                        let thatCard1 = document.querySelector('[src="' + link1 + '"]')
+                        thatCard1.setAttribute('style', 'transform: rotateX(0deg); transition: 0.3s')
+                        card16.classList.add('finish')
+
+                        console.log(card16.classList);
+
+                        if (link1 == 'go1.png' || link1 == 'go2.png') {
+                            thatCard1.alt = 'golang'
+                        }
+                        else if (link1 == 'js1.png' || link1 == 'js2.png') {
+                            thatCard1.alt = 'javascript'
+                        }
+                        else if (link1 == 'kot1.jpeg' || link1 == 'kot2.jpeg') {
+                            thatCard1.alt = 'kotlin'
+                        }
+                        else if (link1 == 'py1.png' || link1 == 'py2.png') {
+                            thatCard1.alt = 'python'
+                        }
+                        else if (link1 == 'ruby1.png' || link1 == 'ruby2.png') {
+                            thatCard1.alt = 'ruby'
+                        }
+                        else if (link1 == 'rust1.jpeg' || link1 == 'rust2.jpeg') {
+                            thatCard1.alt = 'rust'
+                        }
+                        else if (link1 == 'swift1.jpeg' || link1 == 'swift2.jpeg') {
+                            thatCard1.alt = 'swift'
+                        }
+                        else if (link1 == 'ts1.png' || link1 == 'ts2.png') {
+                            thatCard1.alt = 'typescript'
+                        }
+                    }
+                    else {
+                        link2 = document.getElementById('photo16').getAttribute('src')
+                        let thatCard2 = document.querySelector('[src="' + link2 + '"]')
+                        thatCard2.setAttribute('style', 'transform: rotateX(0deg);')
+                        card16.classList.add('finish')
+
+                        console.log(card16.classList);
+
+                        if (link2 == 'go1.png' || link2 == 'go2.png') {
+                            thatCard2.alt = 'golang'
+                        }
+                        else if (link2 == 'js1.png' || link2 == 'js2.png') {
+                            thatCard2.alt = 'javascript'
+                        }
+                        else if (link2 == 'kot1.jpeg' || link2 == 'kot2.jpeg') {
+                            thatCard2.alt = 'kotlin'
+                        }
+                        else if (link2 == 'py1.png' || link2 == 'py2.png') {
+                            thatCard2.alt = 'python'
+                        }
+                        else if (link2 == 'ruby1.png' || link2 == 'ruby2.png') {
+                            thatCard2.alt = 'ruby'
+                        }
+                        else if (link2 == 'rust1.jpeg' || link2 == 'rust2.jpeg') {
+                            thatCard2.alt = 'rust'
+                        }
+                        else if (link2 == 'swift1.jpeg' || link2 == 'swift2.jpeg') {
+                            thatCard2.alt = 'swift'
+                        }
+                        else if (link2 == 'ts1.png' || link2 == 'ts2.png') {
+                            thatCard2.alt = 'typescript'
+                        }
+                    }
+
+                    if (link1.length != 0 && link2.length != 0) {
+                        let curlink1 = link1
+                        let curlink2 = link2
+                        link1 = ""
+                        link2 = ""
+                        let thatCard1 = document.querySelector('[src="' + curlink1 + '"]')
+                        let thatCard2 = document.querySelector('[src="' + curlink2 + '"]')
+                        let alt1 = thatCard1.getAttribute('alt')
+                        let alt2 = thatCard2.getAttribute('alt')
+
+                        if (alt1 != alt2) {
+                            setTimeout(() => {
+                                let thatCard1 = document.querySelector('[src="' + curlink1 + '"]');
+                                let thatCard2 = document.querySelector('[src="' + curlink2 + '"]');
+                                thatCard1.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                thatCard2.setAttribute('style', 'transform: rotateX(90deg); transition: 0.3s');
+                                card16.classList.remove('finish')
+                        console.log(card16.classList);
+
+                                link1 = "";
+                                link2 = "";
+                            }, 800);
+                        }
+                        else {
+                            score = score + 2
+                            let scorediv = document.querySelector('.scorediv')
+                            scorediv.textContent = score
+                            let cardMatched = new Audio('cardmatch.wav')
+                            cardMatched.volume = 0.5
+                            cardMatched.play()
+                        }
+                    }
+                    finish()
+                }
+                
+            })
+        }
+         document.addEventListener("DOMContentLoaded", function () {
+                shuffelingImage();
+            });
+          
+    </script>
+</body>
+</html>
