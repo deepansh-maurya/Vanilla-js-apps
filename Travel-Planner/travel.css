@@ -1,0 +1,648 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.062);
+    user-select: none;
+}
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    border: 1px solid red;
+    /* overflow: hidden; */
+    position: relative;
+    /* flex-wrap: ; */
+}
+
+.formvalidation {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    border: 1px solid red;
+    display: none;
+}
+
+.left {
+    width: 55%;
+    height: 100%;
+    border: 1px solid red;
+}
+
+.right {
+    width: 45%;
+    height: 100%;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: 10%;
+    height: 5%;
+    border: 1px solid red;
+}
+
+.title {
+    width: 60%;
+    border: 1px solid red;
+    height: 12%;
+}
+
+.message {
+    width: 11%;
+    border: 1px solid red;
+    height: 7%;
+}
+
+.register {
+    width: 25%;
+    border: 1px solid red;
+    height: 7%;
+    display: flex;
+}
+
+.signup {
+    width: 50%;
+    height: 100%;
+    border: 1px solid red;
+}
+
+.signin {
+    width: 50%;
+    height: 100%;
+    border: 1px solid red;
+}
+
+.signupsignin {
+    width: 100%;
+    height: 60%;
+    border: 1px solid red;
+}
+
+.tagline {
+    width: 100%;
+    height: 20%;
+    border: 1px solid red;
+}
+
+#signupform {
+    width: 100%;
+    height: 80%;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+}
+
+#signinform {
+    width: 100%;
+    height: 80%;
+    border: 1px solid red;
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    /* display: none; */
+}
+
+#username {
+    width: 40%;
+}
+
+#password {
+    width: 40%;
+}
+
+#confirm {
+    width: 40%;
+}
+
+.buttonup {
+    cursor: pointer;
+    border: 1px solid red;
+}
+
+.forgotform {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    display: none;
+}
+
+.forgotform form {
+    display: flex;
+    flex-direction: column;
+}
+
+.app {
+    width: 100%;
+    height: 100%;
+    border: 1px solid red;
+    display: flex;
+    position: absolute;
+    display: flex;
+}
+
+.left2 {
+    width: 3%;
+    height: 100%;
+    border: 1px solid red;
+    position: relative;
+}
+
+.right2 {
+    width: 33%;
+    height: 100%;
+    border: 1px solid red;
+}
+
+.options {
+    width: 100%;
+    height: 70%;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 18%;
+
+}
+
+.home img,
+.budget img,
+.documents img,
+.weather img,
+.accomodations img,
+.talking img,
+.trips img {
+    width: 50%;
+    position: relative;
+    left: 20%;
+    cursor: pointer;
+}
+
+.middle {
+    width: 64%;
+    height: 100%;
+    border: 1px solid red;
+}
+
+.searchbar {
+    width: 100%;
+    height: 6%;
+    border: 1px solid red;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    gap: 2%;
+}
+
+.searchbar input {
+    width: 60%;
+    height: 100%;
+    cursor: pointer;
+}
+
+#image {
+    width: 3%;
+    position: absolute;
+    right: 21%;
+    cursor: pointer;
+    z-index: 4;
+}
+
+.plantrip {
+    margin-top: 0.5%;
+    width: 90%;
+    height: 38%;
+    border: 1px solid red;
+    margin: 0 auto;
+}
+
+.nameoftrip label img {
+    width: 3%;
+}
+
+.checkincheckout label img {
+    width: 3.5%;
+}
+
+.members label img {
+    width: 3%;
+}
+
+.lang label img {
+    width: 3%;
+}
+
+.purpose label img {
+    width: 3%;
+}
+
+.plcaeoftrip label img {
+    width: 3%;
+
+}
+
+.purposeoftrip img {
+    width: 3%;
+
+}
+
+.places {
+    width: 100%;
+    height: 56%;
+    border: 1px solid red;
+}
+
+.placesheading {
+    width: 100%;
+    height: 17%;
+    border: 1px solid red;
+}
+
+.popular {
+    width: 100%;
+    height: 83%;
+    border: 1px solid rgb(145, 255, 0);
+    display: flex;
+    position: relative;
+}
+
+.poularstays,
+.youplaces {
+    width: 50%;
+    height: 100%;
+    border: 1px solid rgb(255, 0, 43);
+    /* background-; */
+    overflow-y: auto;
+    /* display: flex;
+            flex-direction: column; */
+}
+
+.star {
+    color: #FFD700;
+}
+
+.half-star::before {
+    content: '\2605';
+    /* Unicode character for a filled star */
+    position: absolute;
+    clip: rect(0, 0.5em, 1em, 0);
+    color: #FFD700;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    /* background-color: rgb(255, 255, 178); */
+}
+
+.addaplan {
+    width: 10%;
+    border: 1px solid red;
+}
+
+.mytrips,
+.speechrecoganition {
+    width: 97%;
+    height: 100%;
+    border: 1px solid red;
+    display: none;
+    flex-direction: column;
+}
+
+.speechrecoganition {
+    width: 97%;
+    height: 100%;
+    border: 1px solid red;
+    display: none;
+    flex-direction: column;
+}
+
+.containtrip {
+    width: 100%;
+    height: 100%;
+    border: 1px solid green;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    overflow-y: scroll;
+}
+
+.text {
+    width: 100%;
+    height: 90%;
+    border: 1px solid green;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    overflow-y: scroll;
+}
+
+.buttontext {
+    width: 100%;
+    height: 10%;
+    border: 1px solid green;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.leftbutton,
+.rightbuton {
+    width: 30%;
+    height: 80%;
+    border: 1px solid red;
+}
+
+.budgetfeature{
+    width:97% ;
+    height: 100%;
+    border: 1px solid green;
+    display: none;
+    flex-direction: column;
+    /* gap: 0.5% ; */
+    gap: 1%;
+    position: relative;
+}
+.budgettitle{
+    width: 100%;
+    height: 7%;
+    border: 1px solid red;
+}
+.category{
+    width: 100%;
+    height: 26%;
+    /* border: 1px solid blue; */
+    display: flex;
+    gap: 1%;
+    position: relative;
+}
+.mainbal,.spent{
+    width: 19%;
+    height: 100%;
+    border: 1px solid red;
+    position: absolute;
+    left: 1%;
+    transform: translateX();
+    /* overflow-x: ; */
+    display: flex;
+    flex-direction: column;
+}
+.slider{
+    width: 78%;
+    height: 100%;
+    /* border:1px solid red; */
+    position: absolute;
+    left: 21%;
+}
+.triprecord{
+    width: 33.5%;
+    height: 31%;
+    position: absolute;
+    left: 1%;
+    top:68%;
+    border: 1px solid red;
+    z-index: 0;
+    display: flex;
+}
+.dailyexpense{
+    width: 33.5%;
+    height: 31%;
+     border: 1px solid red;
+     position: absolute;
+     left: 35.5%;
+     bottom: 33%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+.setdaily{
+    width: 29%;
+    height: 63%;
+    border: 1px solid red;
+    position: absolute;
+    left: 70%;
+    bottom: 1%;
+}
+.topexpense{
+    width: 33.5%;
+        height: 31%;
+        border: 1px solid red;
+        position: absolute;
+        left: 1%;
+        top: 36%;
+}
+.empty{
+        width: 33.5%;
+            height: 31%;
+            border: 1px solid red;
+            position: absolute;
+            left: 35.5%;
+            bottom: 1%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+}
+.top1{
+    width: 45%;
+    height: 60%;
+    border-radius: 100%;
+    background-color: #FFD700;
+    position: absolute;
+    z-index: 0;
+        left: 18%;
+}
+.top2{
+    width: 40%;
+    height: 55%;
+    border-radius: 100%;
+    background-color: #00ff51;
+    position: absolute;
+    z-index: 0;
+        left: 36%;
+}
+.top3{
+    width: 35%;
+    height: 50%;
+    border-radius: 100%;
+    background-color: blue;
+    position: absolute;
+    bottom: 8%;
+    z-index: 0;
+        left: 10%;
+}
+.top4{
+    width: 30%;
+    height: 45%;
+    border-radius: 100%;
+    background-color: brown;
+    position: absolute;
+    bottom: 7%;
+    right: 24%;
+    z-index: 0;
+}
+.dailytitle{
+    width: 100%;
+    height: 9%;
+    border: 1px solid red;
+}
+.dailygoal{
+    width: 100%;
+    height: 91%;
+    border: 1px solid rgb(0, 0, 0);
+}
+.goal{
+    width: 100%;
+    height: 9%;
+    /* border: 1px solid yellow; */
+    display: flex;
+    /* position: relative; */
+    align-items: center;
+}
+.dailycat{
+    /* width: 50%;
+    height: 100%; */
+    /* border: 1px solid greenyellow; */
+    position: relative;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    left: 5%;
+}
+.dialyremain{
+    width: 50%;
+        height: 70%;
+        border: 1px solid rgb(13, 15, 131);
+        /* position: absolute; */
+        /* right: 0; */
+        margin-left: 18%;
+}
+.barcontain{
+    width: 100%;
+    height: 100%;
+    /* background-color: blue; */
+    /* border: 1px solid red; */
+}
+.remainbar{
+    width: 100%;
+        height: 100%;
+        background-color: rgba(0, 255, 179, 0.378);
+        transition: 0.5s;
+        border: none;
+}
+.setwraper {
+    width: 100vw;
+    height: 100vh;
+    background-color:rgba(255, 255, 255, 0.281);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    flex-direction: column;
+    position: absolute;
+    z-index: 443;
+}
+
+.set {
+    width: 50%;
+    height: 50%;
+    transition: 0.5s;background-color: #209e24;
+    display: flex;
+    overflow: hidden;
+}
+.set2{
+    width: 50%;
+    transition: 0.5s;       height: 50%;
+        background-color: #209e24;
+        display: none;
+        overflow: hidden;
+}
+.butsave{
+    width: 50%;
+    height: 7%;
+    border: 1px solid red;
+    margin:1% ;
+    display: flex;
+    position: relative;
+    transition: 0.5s;
+}
+.save{
+    width: 70%;
+    height: 100%;
+    border: 1px solid red;
+    transition: 0.5s;
+}
+.save2{
+    display: none;
+    width: 100%;
+    height: 100%;
+    border: 1px solid red;
+}
+.addexpense{
+    width: 30%;
+    height: 100%;
+    border: 1px solid red;
+    position: absolute;
+    right: 0;
+    z-index: 24;
+}
+.left {
+    width: 50%;
+    height: 100%;
+    border: 1px solid red;
+}
+
+.right {
+    width: 50%;
+    height: 100%;
+    border: 1px solid red;
+}
+
+.leftgoal {
+    width: 100%;
+    height: 16%;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightgoal {
+    width: 100%;
+    height: 20%;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.setgoal {
+    width: 50%;
+    height: 100%;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#enterbudget {
+    height: 70%;
+}
+
+.settitle {
+    border: 1px solid red;
+    color: white;
+    margin-bottom: 2%;
+}
+#pieChart,#lineChart{
+    width: 110%;
+    height: 100%;
+    background-color: rgba(255, 222, 173, 0);
+}

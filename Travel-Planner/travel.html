@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinify</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+    <script src="https://unpkg.com/leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="travel.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="formvalidation">
+            <div class="forgotform">
+                <form action="">
+                    <label id="forgotuser" for="forgotpassword">Enter username or email</label>
+                    <input   type="text" id="forgotpassword" required placeholder="enter username or email">
+                    <div>Submit</div>
+                </form>
+            </div>
+            <div class="left">
+                <div class="logo">Destinify</div>
+                <div class="title">
+                    <pre>
+                        Hey,
+                        Where you off to Next?
+                    </pre>
+                </div>
+                <div class="message">
+                    Get Started
+                </div>
+            </div>
+            <div class="right">
+                <div class="register">
+                    <div class="signup">Register</div>
+                    <div class="signin">Sign In</div>
+                </div>
+                <div class="signupsignin">
+                    <div class="tagline">
+                        Welcome to online travel planner TravelBoard
+                    </div>
+                    <form id="signupform">
+                        <label for="usernameup">E-mail or Username</label>
+                        <input type="text" id="usernameup" required placeholder="enter your e-mail or username">
+
+                        <label for="passwordup">Password</label>
+                        <input type="text" id="passwordup" required placeholder="enter your password">
+
+                        <label for="confirm">Confirm Password</label>
+                        <input type="text" id="confirm" required placeholder="confirm your password">
+
+                        <div class="buttonup" id="signupbuttonup">Register</div>
+
+                        <div class="signinnow">have an account! Click here to <a href="">Sign in now</a></div>
+                    </form>
+                    <form id="signinform">
+                        <label for="usernamein">E-mail or Username</label>
+                        <input type="text" id="usernamein" required placeholder="enter your e-mail or username">
+
+                        <label for="passwordin">Password</label>
+                        <input type="text" id="passwordin" required placeholder="enter your password">
+
+                        <div class="forgot">forgot password</div>
+                        <div class="buttonin" id="signupbuttonin">Sign In</div>
+                        
+                        <div class="signupnow">Don't have an account? Click here to <a href="">Register</a></div>
+                    </form>
+                </div>
+              
+            </div>
+        </div>
+        <div class="app">
+            <div class="setwraper">
+                <div class="settitle">Handle Your Daily</div>
+                <div class="set">
+                    <div class="left">
+                        <div class="leftgoal">
+                            <div class="setgoal0 setgoal">Food</div>
+                            <input type="text" id="enterbudget1">
+                        </div>
+                        <div class="leftgoal">
+                            <div class="setgoal1 setgoal">Sport</div>
+                            <input type="text" id="enterbudget2">
+                        </div>
+                        <div class="leftgoal">
+                            <div class="setgoal2 setgoal">Transport</div>
+                            <input type="text" id="enterbudget3">
+                        </div>
+                        <div class="leftgoal">
+                            <div class="setgoa3 setgoal">Shoping</div>
+                            <input type="text" id="enterbudget4">
+                        </div>
+                        <div class="leftgoal">
+                            <div class="setgoal4 setgoal">Health</div>
+                            <input type="text" id="enterbudget5">
+                        </div>
+                        <div class="leftgoal">
+                            <div class="setgoal5 setgoal">Accomodation</div>
+                            <input type="text" id="enterbudget6">
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="rightgoal">
+                            <div class="setgoal6 setgoal">Actitvities</div>
+                            <input type="text" id="enterbudget7">
+                        </div>
+                        <div class="rightgoal">
+                            <div class="setgoal7 setgoal">Business Expense</div>
+                            <input type="text" id="enterbudget8">
+                        </div>
+                        <div class="rightgoal">
+                            <div class="setgoal8 setgoal">Beauty</div>
+                            <input type="text" id="enterbudget9">
+                        </div>
+                        <div class="rightgoal">
+                            <div class="setgoal9 setgoal">Category</div>
+                            <input type="text" id="enterbudget10">
+                        </div>
+                        <div class="rightgoal">
+                            <div class="setgoal10 setgoal">Emergency Expense</div>
+                            <input type="text" id="enterbudget11">
+                        </div>
+                    </div>
+                </div>
+                <div class="set2">
+                <div class="left">
+                    <div class="leftgoal">
+                        <div class="setgoal">Foodi</div>
+                        <input type="text" id="enterbudget12">
+                    </div>
+                    <div class="leftgoal">
+                        <div class="setgoal">Sport</div>
+                        <input type="text" id="enterbudget13">
+                    </div>
+                    <div class="leftgoal">
+                        <div class="setgoal">Transport</div>
+                        <input type="text" id="enterbudget14">
+                    </div>
+                    <div class="leftgoal">
+                        <div class="setgoal">Shoping</div>
+                        <input type="text" id="enterbudget15">
+                    </div>
+                    <div class="leftgoal">
+                        <div class="setgoal">Health</div>
+                        <input type="text" id="enterbudget16">
+                    </div>
+                    <div class="leftgoal">
+                        <div class="setgoal">Accomodation</div>
+                        <input type="text" id="enterbudget17">
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="rightgoal">
+                        <div class="setgoal">Actitvities</div>
+                        <input type="text" id="enterbudget18">
+                    </div>
+                    <div class="rightgoal">
+                        <div class="setgoal">Business Expense</div>
+                        <input type="text" id="enterbudget19">
+                    </div>
+                    <div class="rightgoal">
+                        <div class="setgoal">Beauty</div>
+                        <input type="text" id="enterbudget20">
+                    </div>
+                    <div class="rightgoal">
+                        <div class="setgoal">Category</div>
+                        <input type="text" id="enterbudget21">
+                    </div>
+                    <div class="rightgoal">
+                        <div class="setgoal">Emergency Expense</div>
+                        <input type="text" id="enterbudget22">
+                    </div>
+                </div>
+                </div>
+                <div class="butsave">
+                    <div class="save">
+                        Save
+                    </div>
+                <div class="addexpense">Add Expense</div>
+                <div class="save2">save2</div>
+                </div>
+            </div>
+            <div class="left2">
+                <div class="goodtravel">
+                    Good Travel
+                </div>
+                <div class="options">
+                    <div class="home"><img src="https://cdn0.iconfinder.com/data/icons/ui-essentials-18/32/user_interface_ui_basic_app_home_homepage-64.png" alt=""></div>
+                    <div class="trips"><img src="https://cdn-icons-png.flaticon.com/128/5323/5323626.png" alt=""></div>
+                    <div class="budget"><img src="https://cdn0.iconfinder.com/data/icons/business-290/100/round-solid-business-set6-26-64.png" alt=""></div>
+                    <div class="documents"><img src="https://cdn1.iconfinder.com/data/icons/essentials-pack/96/drawer_archive_files_documents_office-64.png" alt=""></div>
+                    <div class="accomodations"><img src="https://cdn2.iconfinder.com/data/icons/travel-solid-world-is-beautiful/512/Plane-64.png" alt=""></div>
+                    <div class="talking"><img src="https://cdn4.iconfinder.com/data/icons/glyphs/24/icons_mic-64.png" alt=""></div>
+                </div>
+            </div>
+            <div class="middle">
+                <div class="searchbar">
+                    <input type="text" id="searchplace" required placeholder="Destinations, Places etc">
+                    <img id="image" src="https://cdn2.iconfinder.com/data/icons/science-and-technology-6-5/48/260-64.png" alt="">
+                   
+                </div>
+                <div class="plantrip">
+                    <div class="triptitle">Plan Your Trip</div>
+                    <div class="nameoftrip">
+                        <label for="name"><img src="https://cdn3.iconfinder.com/data/icons/iconpark-vol-10/48/edit-name-64.png" alt=""></label>
+                        <input type="text" id="name" required placeholder="Name your trip">
+                    </div>
+                    <div class="plcaeoftrip">
+                        <label for="place"><img src="https://cdn3.iconfinder.com/data/icons/map-pins-1/512/map_pin_destination_location_adress_street-64.png" alt=""></label>
+                        <input type="text" id="place" required placeholder="Your Destination">
+                    </div>
+                    <div class="checkincheckout">
+                        <label for="checkin checkout"><img src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/calender-64.png" alt=""></label>
+                        <input type="date" id="checkin" required placeholder="Check-in">
+                        <input type="date" id="checkout" required placeholder="Check-out">
+                    </div>
+                    <div class="members">
+                        <label for="adults childs seniors group-leader"> <img src="https://cdn1.iconfinder.com/data/icons/family-and-people-1/264/family-people-001-64.png" alt=""></label>
+                        <input type="text" id="adults" required placeholder="adults">
+                        <input type="text" id="child" required placeholder="child">
+                        <input type="text" id="senior" required placeholder="senior">
+                        <input type="text" id="leader" required placeholder="Group Leader">
+                    </div>
+                    <div class="lang">
+                        <label for="language"><img src="https://cdn0.iconfinder.com/data/icons/communication-274/24/162_-_Communication_earth_globe_language_planet_icon-64.png" alt=""></label>
+                        <select id="language" name="language">
+                            <option value="">Select a Language</option>
+                        </select>
+                    </div>
+                    <div class="purposeoftrip">
+                        <label for="purposeoftrip"><img src="https://cdn-icons-png.flaticon.com/128/87/87910.png" alt=""></label>
+                        <select name="" id="purposeoftrip" pl>
+                            <option value="">Select an option</option>
+                        </select>
+                    </div>
+                    <div class="addaplan">+</div>
+                </div>
+                <div class="places">
+                    <div class="placesheading">
+                        <h1>Popular stays</h1>
+                        <h6>in krrabi thailand</h6>
+                    </div>
+                    <div class="popular">
+                        <div class="poularstays"></div>
+                        <div class="youplaces"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right2">
+                <div class="hello">
+                </div>
+                <div id="map"></div>
+            </div>
+            <div class="mytrips">
+                <h1>Your Own Customized Trip Plans</h1>
+                <div class="containtrip"></div>
+            </div>
+            <div class="speechrecoganition">
+                <h1>Translate Your Way</h1>
+                <div class="div">
+                    <input type="text" id="mytlangtranslated" placeholder="enter your language">
+                    <input type="text" id="getlangtranslated"
+                        placeholder="enter the language in which you want your words to be translated">
+                </div>
+                <div class="text">
+                    
+                </div>
+                <div class="buttontext">
+                    <div class="leftbutton">PEDESTRIANS</div>
+                    <div class="clear">clear</div>
+                    <div class="rightbuton">YOU</div>
+                </div>
+            </div>
+            <div class="budgetfeature">
+                <div class="budgettitle">Track & Thrive: Your Budget Dashboard</div>
+                <div class="category">
+                    <div class="mainbal"></div>
+                    <div class="slider">
+                    </div>
+                </div>
+                <div class="triprecord">
+                        <div class="top1"></div>
+                        <div class="top2"></div>
+                        <div class="top3"></div>
+                        <div class="top4"></div>
+                </div>
+                <div class="dailyexpense">
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <div class="setdaily">
+                    <div class="dailytitle">Budget Your Day</div>
+                    <div class="dailygoal">
+                        <div class="goal">
+                            <div class="dailycat">Food</div>
+                            <div class="dialyremain">
+                                <div class="barcontain">
+                                    <div class="remainbar0 remainbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal">
+                            <div class="dailycat">Sport</div>
+                            <div class="dialyremain">
+                                <div class="barcontain">
+                                    <div class="remainbar1 remainbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal">
+                            <div class="dailycat">Transport</div>
+                            <div class="dialyremain">
+                                <div class="barcontain">
+                                    <div class="remainbar2 remainbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal">
+                            <div class="dailycat">Shoping</div>
+                            <div class="dialyremain">
+                                <div class="barcontain">
+                                    <div class="remainbar3 remainbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal">
+                            <div class="dailycat">Health</div>
+                            <div class="dialyremain">
+                                <div class="barcontain">
+                                    <div class="remainbar4 remainbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal">
+                            <div class="dailycat">Accomodation</div>
+                            <div class="dialyremain">
+                                <div class="barcontain">
+                                    <div class="remainbar5 remainbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal">
+                            <div class="dailycat">Activities</div>
+                            <div class="dialyremain">
+                                <div class="barcontain">
+                                    <div class="remainbar6 remainbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal">
+                            <div class="dailycat">Business Expense</div>
+                            <div class="dialyremain">
+                                <div class="barcontain">
+                                    <div class="remainbar7 remainbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal">
+                            <div class="dailycat">Beauty</div>
+                            <div class="dialyremain">
+                                <div class="barcontain">
+                                    <div class="remainbar8 remainbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal">
+                            <div class="dailycat">Category</div>
+                            <div class="dialyremain">
+                                <div class="barcontain">
+                                    <div class="remainbar9 remainbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal">
+                            <div class="dailycat">Emergency Budget</div>
+                            <div class="dialyremain">
+                                <div class="barcontain">
+                                    <div class="remainbar10 remainbar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="topexpense">
+                </div>
+                <div class="empty">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="travel.js"></script>
+</body>
+</html>
