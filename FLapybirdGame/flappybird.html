@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird</title>
+    <style>
+        *{
+            padding: 0;                                                 
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .wrapper{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            position: relative;           
+            background-image: url('png.jpg') ; 
+            background-size: cover;                  
+            background-repeat: no-repeat;
+        }
+        .blockstyle{
+            position: absolute;
+            width: 4%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .upperblock{
+            width: 100%;
+            height: 35%;
+            /* background-color: red; */
+        }
+        .space{
+            width: 100%;
+            height: 30%;
+            background-color: rgba(194, 138, 64, 0);
+        }
+        .lowerblock{
+            width: 100%;
+            height: 35%;
+            /* background-color: red; */
+            z-index: -1;
+        }
+          .bird{
+            width: 40px ;
+            height: 40px;
+            /* background-color: rgb(255, 0, 0); */
+            position: absolute;
+            left: 450px;
+            top: 270px;
+            transition: 0.3s;
+            z-index: 4;
+        }
+        .imagepos{
+           filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+        }
+        .scoreboard{
+            display: flex;
+            flex-direction: column;
+            top: 15%;
+            position: absolute;
+            left: -8%;
+            width: 20%;
+            height: 70%;
+            background-image: linear-gradient(to right,white,rgba(255, 255, 255, 0.352));
+           filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            z-index: 9;
+            border-radius: 70px;
+            /* font: 30%; */
+        }
+        .highest,.current,.retry,.leaderboard{
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            right: 0;
+            color:  rgb(95, 21, 21);
+            font-weight: bolder;
+            font-size: 20px;
+            font-family:Arial, Helvetica, sans-serif;
+           filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .highest{
+        top: 5%;
+        right: 20%;
+        }
+        .current{
+            top: 30%;
+            right: 20%;
+        }
+        .retry{
+            top: 55%;
+            right: 23%;
+        }
+        .leaderboard{
+            top: 80%;
+            right: 8%;
+        }
+        .div{
+            position: relative;
+            top: 3%;       
+        }
+        .score{
+            width: 7%;
+            height: 7%;
+            background-color: rgba(255, 255, 255, 0.509);
+            position: absolute;
+            z-index: 7;
+            border-radius: 100px;
+           filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            top: 2%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font: bolder;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            left: 2%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="score"></div>
+    <div class="bird"></div>
+    </div>
+    <script>
+        let score = 0
+        let scorediv = document.querySelector('.score')
+         let div = document.querySelector(".bird");
+         let photo = document.createElement('img')
+           photo.src = "flappy.png"
+            photo.style.width = 70 + "px"
+            photo.style.position = "relative"
+            photo.style.top = -14 + "px"
+            photo.style.left = -14 + "px"
+            photo.classList.add('imagepos')
+            div.appendChild(photo)
+            photo.style.transition = 0.8 + "s"
+            let movedownid;
+            let pop = 270;
+            const gravity = 10;
+
+            setTimeout(() => {
+               movedownid = setInterval(movedown, 12);
+            }, 1500);
+
+            let upid = document.addEventListener('keyup', () => {
+                photo.style.transform = `rotate(${40}deg)`
+
+                console.log("isme to aggya");
+            })
+
+
+          let downid =  document.addEventListener('keydown', tochengero)
+            function tochengero(){
+                clearInterval(upid)
+                photo.style.transform = `rotate(${-130}deg)`
+            }
+
+            function movedown() {
+                pop = pop + gravity;
+                div.style.top = `${pop}px`;
+            }
+            function jump() {
+                pop = pop - 350;
+                // console.log(pop);
+                div.style.top = `${pop}px`;
+            }
+            document.addEventListener("keyup", jump);
+
+            function checkmiddle(pipe) {
+                const birdRect = div.getBoundingClientRect();
+                const pipeRect = pipe.getBoundingClientRect();
+                return (
+                    birdRect.right > pipeRect.left &&
+                    birdRect.left < pipeRect.right &&
+                    birdRect.bottom > pipeRect.top &&
+                    birdRect.top < pipeRect.bottom &&
+                    birdRect.bottom < positionx1
+                );
+            }
+            function checkcollision(pipe) {
+                const birdRect = div.getBoundingClientRect();
+                const pipeRect = pipe.getBoundingClientRect();
+                return (
+                    birdRect.right > pipeRect.left &&
+                    birdRect.left < pipeRect.right &&
+                    birdRect.bottom > pipeRect.top &&
+                    birdRect.top < pipeRect.bottom &&
+                    birdRect.bottom < positionx1
+                );
+            }
+
+        let wrapper = document.querySelector(".wrapper");
+        let toggle = true
+
+            function createPipe() {
+                let pipe = document.createElement("div");
+                let part1 = document.createElement("div");
+                let part2 = document.createElement("div");
+                let part3 = document.createElement("div");
+                pipe.classList.add("blockstyle");
+                part1.classList.add("upperblock");
+                part2.classList.add("space");
+                part3.classList.add("lowerblock");
+                pipe.appendChild(part1);
+                pipe.appendChild(part2);
+                pipe.appendChild(part3);
+                wrapper.appendChild(pipe);
+                return pipe;
+            }
+            let pipes = [
+                createPipe(),
+                createPipe(),
+                createPipe(),
+                createPipe(),
+                createPipe(),
+                createPipe(),
+            ];
+            let positionx1 = wrapper.offsetWidth;
+            let positionx2 = positionx1 + 1 * 300;
+            let positionx3 = positionx1 + 2 + 300;
+            let positionx4 = positionx1 + 3 * 300;
+            let positionx5 = positionx1 + 4 * 300;
+            let positionx6;
+            let positionx7;
+            let speed = 3;
+            pipes.forEach((pipe, index) => {
+                pipe.style.transform = `translateX(${positionx1 + index * 200}px)`;
+
+
+                let image = document.createElement("img");
+                image.src = "flappy_pillar-removebg-preview.png";
+                image.style.transform = `rotate(180deg)`;
+                image.style.width = 100 + "%"
+                image.style.height = 110 + "%"
+                image.style.position = "relative"
+                image.style. top = -10 + "px"
+                image.classList.add('imagepos')
+                
+
+                let image2 = document.createElement("img");
+                image2.src = "flappy_pillar-removebg-preview.png";
+                image2.style.width = 100 + "%"
+                image2.style.height = 110 + "%"
+                image2.style.top = 20+ "px"
+                image2.classList.add('imagepos')
+
+
+                
+                pipe.children[0].appendChild(image);
+                pipe.children[2].appendChild(image2);
+                // pipe.children[2].classList.add('imagepos')
+            });
+            let animationid;
+            function pipeLoop() {
+                pipes.forEach((pipe, index) => {
+                    if (index == 0) {
+                        positionx1 = parseFloat(pipe.style.transform.match(/\d+/)[0]);
+                        positionx1 -= speed;
+                        pipe.style.transform = `translateX(${positionx1}px)`;
+                        if (positionx1 < 0) {
+                            positionx1 = wrapper.offsetWidth;
+                            pipe.style.transform = `translateX(${positionx1 -50  }px)`;
+                            let pipepart = {
+                                first: [35, 30, 35],
+                                second: [25, 30, 45],
+                                third: [45, 30, 25],
+                            };
+                            let random = Math.floor(Math.random() * 3) + 1;
+                            if (random == 1) {
+                                pipe.children[0].style.height = pipepart.third[0] + "%";
+                                pipe.children[2].style.height = pipepart.third[2] + "%";
+                            }
+                            if (random == 2) {
+                                pipe.children[0].style.height = pipepart.second[0] + "%";
+                                pipe.children[2].style.height = pipepart.second[2] + "%";
+                            }
+                            if (random == 3) {
+                                pipe.children[0].style.height = pipepart.first[0] + "%";
+                                pipe.children[2].style.height = pipepart.first[2] + "%";
+                            }
+                        }
+                    }
+                    if (index == 1) {
+                        positionx2 = parseFloat(pipe.style.transform.match(/\d+/)[0]);
+                        positionx2 -= speed;
+                        pipe.style.transform = `translateX(${positionx2}px)`;
+                        if (positionx2 < 3) {
+                            positionx2 = wrapper.offsetWidth;
+                            pipe.style.transform = `translateX(${positionx2 -50 }px)`;
+                            let pipepart = {
+                                first: [35, 30, 35],
+                                second: [15, 30, 55],
+                                third: [55, 30, 15],
+                            };
+                            let random = Math.floor(Math.random() * 3) + 1;
+                            if (random == 1) {
+                                pipe.children[0].style.height = pipepart.third[0] + "%";
+                                pipe.children[2].style.height = pipepart.third[2] + "%";
+                            }
+                            if (random == 2) {
+                                pipe.children[0].style.height = pipepart.second[0] + "%";
+                                pipe.children[2].style.height = pipepart.second[2] + "%";
+                            }
+                            if (random == 3) {
+                                pipe.children[0].style.height = pipepart.first[0] + "%";
+                                pipe.children[2].style.height = pipepart.first[2] + "%";
+                            }
+                        }
+                    }
+                    if (index == 2) {
+                        positionx3 = parseFloat(pipe.style.transform.match(/\d+/)[0]);
+                        positionx3 -= speed;
+                        pipe.style.transform = `translateX(${positionx3}px)`;
+                        if (positionx3 < 3) {
+                            positionx3 = wrapper.offsetWidth;
+                            pipe.style.transform = `translateX(${positionx3-50}px)`;
+                            let pipepart = {
+                                first: [35, 30, 35],
+                                second: [45, 30, 25],
+                                third: [15, 30, 55],
+                            };
+                            let random = Math.floor(Math.random() * 3) + 1;
+                            if (random == 1) {
+                                pipe.children[0].style.height = pipepart.third[0] + "%";
+                                pipe.children[2].style.height = pipepart.third[2] + "%";
+                            }
+                            if (random == 2) {
+                                pipe.children[0].style.height = pipepart.second[0] + "%";
+                                pipe.children[2].style.height = pipepart.second[2] + "%";
+                            }
+                            if (random == 3) {
+                                pipe.children[0].style.height = pipepart.first[0] + "%";
+                                pipe.children[2].style.height = pipepart.first[2] + "%";
+                            }
+                        }
+                    }
+                    if (index == 3) {
+                        positionx4 = parseFloat(pipe.style.transform.match(/\d+/)[0]);
+                        positionx4 -= speed;
+                        pipe.style.transform = `translateX(${positionx4}px)`;
+                        if (positionx4 < 3) {
+                            positionx4 = wrapper.offsetWidth;
+                            pipe.style.transform = `translateX(${positionx4-50}px)`;
+                            let pipepart = {
+                                first: [35, 30, 35],
+                                second: [55, 30, 15],
+                                third: [45, 30, 25],
+                            };
+                            let random = Math.floor(Math.random() * 3) + 1;
+                            if (random == 1) {
+                                pipe.children[0].style.height = pipepart.third[0] + "%";
+                                pipe.children[2].style.height = pipepart.third[2] + "%";
+                            }
+                            if (random == 2) {
+                                pipe.children[0].style.height = pipepart.second[0] + "%";
+                                pipe.children[2].style.height = pipepart.second[2] + "%";
+                            }
+                            if (random == 3) {
+                                pipe.children[0].style.height = pipepart.first[0] + "%";
+                                pipe.children[2].style.height = pipepart.first[2] + "%";
+                            }
+                        }
+                    }
+                    if (index == 4) {
+                        positionx5 = parseFloat(pipe.style.transform.match(/\d+/)[0]);
+                        positionx5 -= speed;
+                        pipe.style.transform = `translateX(${positionx5}px)`;
+                        if (positionx5 < 3) {
+                            positionx5 = wrapper.offsetWidth;
+                            pipe.style.transform = `translateX(${positionx5-50}px)`;
+                            let pipepart = {
+                                first: [35, 30, 35],
+                                second: [15, 30, 55],
+                                third: [25, 30, 45],
+                            };
+                            let random = Math.floor(Math.random() * 3) + 1;
+                            if (random == 1) {
+                                pipe.children[0].style.height = pipepart.third[0] + "%";
+                                pipe.children[2].style.height = pipepart.third[2] + "%";
+                            }
+                            if (random == 2) {
+                                pipe.children[0].style.height = pipepart.second[0] + "%";
+                                pipe.children[2].style.height = pipepart.second[2] + "%";
+                            }
+                            if (random == 3) {
+                                pipe.children[0].style.height = pipepart.first[0] + "%";
+                                pipe.children[2].style.height = pipepart.first[2] + "%";
+                            }
+                        }
+                    }
+                    if (index == 5) {
+                        positionx6 = parseFloat(pipe.style.transform.match(/\d+/)[0]);
+                        positionx6 -= speed;
+                        pipe.style.transform = `translateX(${positionx6}px)`;
+                        if (positionx6 < 0) {
+                            positionx6 = wrapper.offsetWidth;
+                            pipe.style.transform = `translateX(${positionx6-50}px)`;
+                            let pipepart = {
+                                first: [35, 30, 35],
+                                second: [55, 30, 15],
+                                third: [15, 30, 55],
+                            };
+                            let random = Math.floor(Math.random() * 3) + 1;
+                            if (random == 1) {
+                                pipe.children[0].style.height = pipepart.third[0] + "%";
+                                pipe.children[2].style.height = pipepart.third[2] + "%";
+                            }
+                            if (random == 2) {
+                                pipe.children[0].style.height = pipepart.second[0] + "%";
+                                pipe.children[2].style.height = pipepart.second[2] + "%";
+                            }
+                            if (random == 3) {
+                                pipe.children[0].style.height = pipepart.first[0] + "%";
+                                pipe.children[2].style.height = pipepart.first[2] + "%";
+                            }
+                        }
+                    }
+                    if (checkcollision(pipe.children[0]) || checkcollision(pipe.children[2])) {
+                        cancelAnimationFrame(animationid)
+                        toggle = false
+                        if(true){
+                        document.removeEventListener('keyup', jump);
+                        clearInterval(movedownid)
+                        document.removeEventListener('keydown', tochengero);
+                        }
+                    }
+                    const piperight = pipe.getBoundingClientRect().left
+                    const divright = div.getBoundingClientRect().right;
+                    if(divright ===  piperight){
+                        score++
+                        scorediv.textContent = score
+                    }
+                });
+                if(toggle){
+                animationid = requestAnimationFrame(pipeLoop)
+                }
+            }
+            animationid = requestAnimationFrame(pipeLoop)
+    </script>
+</body>
+</html>
