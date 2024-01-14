@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weathernut</title>
+    <style>
+        body{
+            overflow: hidden;
+            position: relative;
+        }
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            user-select: none;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+
+            /* border: none; */
+        }
+        .wrapper{
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: absolute;
+             background: rgba(0, 0, 0, 0.473);
+            /* background-color: rgb(41, 94, 139); */
+            background-size: cover;
+            background-position: center;
+            /* opacity: 50%; */
+            background-repeat: no-repeat;
+        }
+        .upperportion{
+            width: 100%;
+            height: 60%;
+            position: absolute;
+            border: 1px solid black;
+        }
+        .setting{
+            width: 6%;
+            height: 3%;
+            /* border: 1px solid red; */
+            position: absolute;
+            top: 2%;
+            right: 2%;
+        }
+        .dayandtime{
+            width: 80%;
+            height: 7%;
+            position: absolute;
+            top: 6%;
+            left: 8%;
+            margin: 0 auto;
+            /* border: 1px solid red; */
+            display: flex;
+            justify-content: space-between;
+        }
+        .place{
+            height: 100%;
+            width: 50%;
+            /* border: 1px solid red; */
+            display: flex;
+            align-items: center ;
+            font-size: 140%;
+            font-weight: bold;
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+
+        }
+        .timediv{
+            height: 70%;
+            width: 50%;
+            position: absolute;
+            right: 0;
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            bottom: 0;
+            /* border: 1px solid red; */
+            position: relative;
+        }
+        .time{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 130%;
+            position: absolute;
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            width: 40%;
+            /* border: 1px solid red; */
+            height: 100%;
+            display: block;
+            right: 0;bottom: 0;
+        }
+        .condition{
+            width: 80%;
+            /* border: 1px solid red; */
+            height: 5%;
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            position: absolute;
+            top:14%;
+            left: 8%;
+            display: flex;
+            align-items: center;
+            font-size: 120%;
+        }
+        .temp{
+            position: absolute;
+            top: 20%;left: 8%;
+            width: 80%;
+            height: 20%;
+            position: absolute;
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            /* border: 1px solid red; */
+            display: flex;
+        }
+        .svg{
+            width: 9%;
+            height: 49%;
+            /* border: 1px solid red; */
+            position: absolute;
+            top: 10%;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .svg img{
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            width: 140%;
+            height: 140%;
+
+        }
+        .incel{
+            width: 20%;
+            height: 100%;
+            /* border: 1px solid red; */
+            position: absolute;
+            display: flex;
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            align-items: center;
+            left:9% ;
+            font-size: 800%;
+            font-weight: lighter;
+        }
+        .infer{
+            position: absolute;
+            left: 31%;
+            width: 10%;
+            height: 60%;
+            /* border: 1px solid red; */
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            position: absolute;
+            top: 9px;
+            display: flex;
+            align-items: center;
+            font-size: 350%;
+        }
+        .lowerportion{
+            position: absolute;
+            bottom: 0;
+            height: 40%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: ce;
+            /* border: 1px solid red; */
+
+            align-items: center;
+        }
+        .dayswrapper{
+            height: 65%;
+            width: 100%;
+            justify-content: space-evenly;
+            display: flex;
+        }
+        .days{
+            width: 5%;
+            height: 100%;
+            /* border: 1px solid red; */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .day1,.day2,.day3,.day4,.day5,.day6,.day7{
+            /* border: 1px solid red; */
+            width: 100%;
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            height: 25%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 140%;
+        }
+        .img{
+            width: 105%;
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            height: 105%;
+        }
+        .input{
+            position: absolute;
+            width: 30%;
+            height: 6%;
+            top: 48%;
+            left: 35%;
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            /* border: 1px solid red; */
+            /* border: 1px solid red; */
+            /* back */
+        }
+        .input input{
+            width: 60%;
+            height: 80%;
+            background-color: rgba(11, 43, 70, 0);
+            border-radius: 15px;
+            font-size: 120%;
+            text-align: center; 
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            border: none;
+            background-color: rgba(255, 228, 196, 0.349);
+        }
+        .input input::placeholder{
+            color:rgba(255, 255, 255, 0.459) ;
+        }
+        input:focus{
+            outline: none;
+        }
+        .button{
+            width: 20%;
+            height: 80%;
+            /* border: 1px solid red; */
+            border-radius: 15px;
+            position: relative;
+            right: -7px;
+            color: rgba(255, 255, 255, 0.493);
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 228, 196, 0.349);
+            cursor: pointer;
+        }
+        .button:hover{
+            color: white;
+            background-color: rgba(255, 222, 173, 0);
+        }
+        .effect{
+            width: 100%;
+            position: absolute;
+            height: 100%;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.651),rgba(0, 0, 0, 0.068),black);
+            /* border: 1px solid red; */
+        }
+        .degreecel{
+            position: absolute;
+            font-size: 330%;
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            top: 23%;
+            left: 26.3%;
+            color: rgb(255, 255, 255);
+        }
+        .degreefer{
+            position: absolute;
+            filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5));
+            top: 24%;
+            font-size: 200%;
+            left: 37.5%;
+        }
+        .img{
+            width: 190%;
+            height: 190%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+                    <div class="degreefer">°F</div>
+                    <div class="degreecel">°C</div>
+    <div class="effect"></div>
+        <!-- <img src="image/" alt=""> -->
+        <div class="upperortion">
+            <div class="setting"></div>
+            <div class="dayandtime">
+                <div class="place"></div>
+                <div class="timediv">
+                    <span class="time"></span>
+                </div>
+            </div>
+            <div class="condition"></div>
+            <div class="temp">
+                <div class="svg">
+                    <img src="" alt="">
+                </div>
+                <div class="incel">
+                </div>
+                <div class="infer">
+                </div>
+            </div>
+            <div class="input">
+                <input type="text" id="getcity" placeholder="enter city name">
+                <div class="button">Search</div>
+            </div>
+        </div>
+        <div class="lowerportion">
+            <img class="image1" src="" alt="">
+            <img class="image2" src="" alt="">
+
+            <div class="dayswrapper">
+                <div class="days">
+                    <div class="day1 today0"></div>
+                    <div class="day1 icon0">
+                        <img class="img"  src="" alt="">
+                    </div>
+                    <div class="day1 temp0"></div>
+                </div>
+                <div class="days">
+                    <div class="day2 today1 "></div>
+                    <div class="day2 icon1">
+                        <img class="img"  src="" alt="">
+                    </div>
+                    <div class="day2 temp1"></div>
+                </div>
+                <div class="days">
+                    <div class="day3 today2"></div>
+                    <div class="day3 icon2">
+                        <img class="img"  src="" alt="">
+                    </div>
+                    <div class="day3 temp2"></div>
+                </div>
+                <div class="days">
+                    <div class="day4 today3"></div>
+                    <div class="day4 icon3">
+                        <img class="img"  src="" alt="">
+                    </div>
+                    <div class="day4 temp3"></div>
+                </div>
+                <div class="days">
+                    <div class="day5 today4"></div>
+                    <div class="day5 icon4">
+                        <img class="img" src="" alt="">
+                    </div>
+                    <div class="day5 temp4"></div>
+                </div>
+                <div class="days">
+                    <div class="day6 today5"></div>
+                    <div class="day6 icon5">
+                        <img class="img" src="" alt="">
+                    </div>
+                    <div class="day6 temp5"></div>
+                </div>
+                <div class="days">
+                    <div class="day7 today6"></div>
+                    <div class="day7 icon6">
+                        <img class="img" src="" alt="">
+                    </div>
+                    <div class="day7 temp6"></div>
+                </div>
+            </div>
+         
+        </div>
+    </div>
+
+    <script src="weather.js" ></script>
+</body>
+</html>
